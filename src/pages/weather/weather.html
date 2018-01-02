@@ -1,0 +1,48 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Weather</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form [formGroup]="weatherForm" novalidate>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label floating>Location</ion-label>
+          <ion-input type="text" formControlName="location" name="location"></ion-input>
+        </ion-item>
+        <p [hidden]="weatherForm.controls.location.valid" danger padding-left> Enter a valid location
+      </ion-col>
+    </ion-row>
+
+    <button ion-button block [disabled]="!weatherForm.controls.location.valid" (click)="getWeather(weatherForm)">
+      <ion-icon name="custom-button"></ion-icon>Get Weather
+    </button>
+
+  </form>
+
+  <div *ngIf="weatherResult">
+    <h3>Right Now</h3>
+    <h2 class="current-temp">
+      <ion-icon name="{{summaryIcon}}"></ion-icon>
+      {{ currentWeather.summary }}&deg;
+    </h2>
+    <div>
+      <div>
+        <span>Feels like {{currentWeather.temperature}}</span>
+        <br>
+        <span>Dew point: {{currentWeather.dewPoint}}</span>
+        <br>
+        <span>Humidity: {{currentWeather.humidity}}%</span>
+        <br>
+        <span>Visibility: {{currentWeather.visibility}} mi</span>
+        <br>
+        <span>Pressure: {{currentWeather.pressure}} mb</span>
+      </div>
+    </div>
+  </div>
+</ion-content>

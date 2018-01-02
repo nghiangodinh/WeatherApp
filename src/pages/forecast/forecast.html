@@ -1,0 +1,54 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Forecast</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form [formGroup]="forecastForm" novalidate>
+    <table width="100%">
+      <tr>
+        <td>
+          <div class="list">
+            <br>
+            <ion-label>Forecast Type</ion-label>
+            <ion-list radio-group formControlName="forecastType" name="forecastType">
+              <ion-item>
+                <ion-label class="item item-radio">daily</ion-label>
+                <ion-radio value="daily" checked></ion-radio>
+              </ion-item>
+              <ion-item>
+                <ion-label class="item item-radio">hourly</ion-label>
+                <ion-radio value="hourly"></ion-radio>
+              </ion-item>
+            </ion-list>
+          </div>
+        </td>
+        <td>
+          <ion-item>
+            <ion-label floating>Location</ion-label>
+            <ion-input type="text" formControlName="location" name="location"></ion-input>
+          </ion-item>
+          <p [hidden]="forecastForm.controls.location.valid" danger padding-left> Enter a valid location</p>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <button ion-button block [disabled]="!forecastForm.controls.location.valid" (click)="getForecast(forecastForm)">
+            <ion-icon name="custom-button"></ion-icon>Get Weather</button>
+        </td>
+      </tr>
+    </table>
+  </form>
+
+  <ion-card *ngIf="weatherServiceResult">
+    <ion-card-header>
+    </ion-card-header>
+    <ion-card-content>
+        <chart [options]="chartValue"></chart>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
